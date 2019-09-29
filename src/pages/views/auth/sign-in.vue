@@ -137,7 +137,8 @@ export default class SignIn extends Vue {
     try {
       let userInfo: IUserState = await this.GetUserInfo()
       let permission = await this.GetPermission({ adminRole: userInfo.adminRole })
-      this.GenerateRoutes({ _permission: permission })
+      let asyncRouter = await this.GenerateRoutes({ _permission: permission })
+      this.$router.addRoutes(asyncRouter)
       this.$router.push({ path: '/' })
     } catch (error) {
       if (this.$route.path !== '/signIn') {
