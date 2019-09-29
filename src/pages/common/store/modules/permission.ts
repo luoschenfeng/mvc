@@ -5,7 +5,7 @@ import configCode from '@/bases/config/configCode'
 const { permissionMap } = configCode.hzlh
 
 import { permissionType } from '../mutation-types'
-import { RootState, IPermissionState, IPermission } from '../type'
+import { RootState, IPermissionState, IPermission, IItemRole } from '../type'
 const { SET_PERMISSION_CACHE, SET_PERMISSION, SET_ROUTERS } = permissionType
 
 function filterAsyncRouter(
@@ -37,12 +37,12 @@ function generatePermission(data: any[]) {
     obj.modelPermission.push(item.id)
     if (
       (<any>permissionMap)[item.id] &&
-      Array.isArray(item.child) &&
-      item.child.length
+      Array.isArray(item.children) &&
+      item.children.length
     ) {
       obj.modelOperationPermission[
         (<any>permissionMap)[item.id]
-      ] = item.child.map((ele: any) => ele.webname)
+      ] = item.children.map((ele: any) => ele.webName)
     }
   })
   return obj
@@ -84,9 +84,9 @@ const mutations: MutationTree<IPermissionState> = {
 }
 
 const actions: ActionTree<IPermissionState, RootState> = {
-  GetPermission({ commit }) {
+  GetPermission({ commit }, { adminRole }: { adminRole: IItemRole[] }) {
     return new Promise(resolve => {
-      const permission: IPermission = generatePermission([])
+      const permission: IPermission = generatePermission(adminRole)
       commit({
         type: 'SET_PERMISSION_CACHE',
         hasCachePermission: true

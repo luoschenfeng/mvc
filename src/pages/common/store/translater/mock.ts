@@ -4,5 +4,15 @@ export const userMock = {
   avatar: {
     name: '',
     identify: 'photo.jpeg'
-  }
+  },
+  adminRole: [
+    {
+      id: 1,
+      children: [
+        {
+          webName: 1
+        },
+      ]
+    }
+  ]
 }

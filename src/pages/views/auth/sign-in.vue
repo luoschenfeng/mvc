@@ -74,12 +74,15 @@ import { login } from '@/bases/utils/auth'
 
 import rules from '@/bases/validate/auth/signIn'
 
+import { IUserState, IItemRole, permissionPayload, routesPayload } from './model/sign-page'
 @Component
 export default class SignIn extends Vue {
   @userModule.Action public GetUserInfo!: () => Promise<any>
-  @permissionModule.Action public GetPermission!: () => Promise<any>
+  @permissionModule.Action public GetPermission!: (
+    payload: permissionPayload
+  ) => Promise<any>
   @permissionModule.Action public GenerateRoutes!: (
-    _permission: any
+    payload: routesPayload
   ) => Promise<any>
   private listLoading: boolean = false
   private pType: string = 'password'
@@ -124,7 +127,7 @@ export default class SignIn extends Vue {
         this.validateLognin()
         this.closeLoading()
 
-        getAdmin()
+        // getAdmin()
       } catch (error) {
         this.closeLoading()
       }
@@ -132,9 +135,10 @@ export default class SignIn extends Vue {
   }
   private async validateLognin() {
     try {
-      await this.GetUserInfo()
+      let userInfo: IUserState = await this.GetUserInfo()
+      let permission = await this.GetPermission({ adminRole: userInfo.adminRole })
+      this.GenerateRoutes({ _permission: permission })
       this.$router.push({ path: '/' })
-
     } catch (error) {
       if (this.$route.path !== '/signIn') {
         this.$router.push({ path: '/signIn' })

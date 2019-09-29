@@ -2,6 +2,7 @@ export const userType = {
   SET_ADMIN_ID: 'SET_ADMIN_ID',
   SET_ADMIN_AVATAR: 'SET_ADMIN_AVATAR',
   SET_ADMIN_NAME: 'SET_ADMIN_NAME',
+  SET_ADMIN_ROLEID: 'SET_ADMIN_ROLEID',
 }
 
 export const cacheType = {

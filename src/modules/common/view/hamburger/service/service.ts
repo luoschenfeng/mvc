@@ -9,6 +9,6 @@ export default class Service extends CommonService {
   }
 
   public toggleSideBar(): void {
-    return this.Store.get$store().dispatch('app/toggleSideBar')
+    return this.Store.get$store().dispatch('app/TOGGLE_SIDEBAR')
   }
 }

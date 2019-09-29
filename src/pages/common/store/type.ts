@@ -57,12 +57,22 @@ export interface ITagsViewState {
   cachedViews: any[];
 }
 
+export interface TypeTree {
+  [key: string]: string;
+}
+
 export interface IUserState {
   adminId: string;
   adminName: string;
   adminAvatar: string;
+  adminRole: IItemRole[];
 }
 
-export interface TypeTree {
-  [key: string]: string;
+export interface IItemRole {
+  id: number;
+  children: IElementRole[];
+}
+
+export interface IElementRole {
+  webName: number;
 }

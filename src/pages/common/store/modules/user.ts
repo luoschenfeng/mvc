@@ -3,17 +3,18 @@ import { signOut } from '@/pages/common/api/auth'
 import { userMock } from '../translater/mock'
 
 import { userType } from '../mutation-types'
-import { RootState, IUserState } from '../type'
+import { RootState, IUserState, IItemRole } from '../type'
 import configCode from '@/bases/config/configCode'
 
 const { HTTP_RESPONSE_STATUS_SUCCESS } = configCode
 
-const { SET_ADMIN_ID, SET_ADMIN_AVATAR, SET_ADMIN_NAME } = userType
+const { SET_ADMIN_ID, SET_ADMIN_AVATAR, SET_ADMIN_NAME, SET_ADMIN_ROLEID } = userType
 
 const state: IUserState = {
   adminId: '',
   adminName: '',
-  adminAvatar: ''
+  adminAvatar: '',
+  adminRole: [],
 }
 
 const mutations: MutationTree<IUserState> = {
@@ -30,6 +31,9 @@ const mutations: MutationTree<IUserState> = {
   },
   [SET_ADMIN_NAME](state, payload: { adminName: string }) {
     state.adminName = payload.adminName
+  },
+  [SET_ADMIN_ROLEID](state, payload: {adminRole: IItemRole[] }) {
+    state.adminRole = payload.adminRole
   }
 }
 
@@ -48,6 +52,10 @@ const actions: ActionTree<IUserState, RootState> = {
       commit({
         type: 'SET_ADMIN_AVATAR',
         adminAvatar: data.avatar
+      })
+      commit({
+        type: 'SET_ADMIN_ROLEID',
+        adminRoleId: data.adminRole
       })
       return resolve(userMock)
     })

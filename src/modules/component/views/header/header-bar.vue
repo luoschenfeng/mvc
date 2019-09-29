@@ -46,10 +46,10 @@
             :value="total"
             class="mark"
           />
-          <img
+          <!-- <img
             :src="showImg()"
             class="user-avatar"
-          >
+          > -->
           <span class="login-user-info">
             {{ adminName }}
           </span>
