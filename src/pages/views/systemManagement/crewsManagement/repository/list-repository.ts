@@ -9,7 +9,7 @@ export default async function listDataClass(query: IQuery) {
     total: res.data.data.total
   }
   data.list = data.list.map((item: CrewsItem) => {
-      return translatorObjToClass(item, CrewsItem)
+    return translatorObjToClass(item, CrewsItem)
   })
   return data
 }

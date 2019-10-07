@@ -26,7 +26,7 @@ const state: IAppState = {
   device: 'desktop',
   isLoading: false,
   language: Cookies.get('language') || 'zh',
-  theme: Cookies.get('clientTheme') || 'bee',
+  theme: Cookies.get('clientTheme') || 'jack',
   desktopNavWidth: 0,
   varyWidth: 0
 }

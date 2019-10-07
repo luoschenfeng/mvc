@@ -38,7 +38,7 @@ const mutations: MutationTree<IUserState> = {
   [SET_ADMIN_ID](state, payload: { adminId: string }) {
     state.adminId = payload.adminId
   },
-  [SET_ADMIN_AVATAR](state, payload: { adminAvatar: { name: string, identify: string} }) {
+  [SET_ADMIN_AVATAR](state, payload: { adminAvatar: { name: string; identify: string} }) {
     state.adminAvatar = payload.adminAvatar
   },
   [SET_ADMIN_NAME](state, payload: { adminName: string }) {

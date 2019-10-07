@@ -65,8 +65,8 @@ export interface IUserState {
   adminId: string;
   adminName: string;
   adminAvatar: {
-    name: string,
-    identify: string
+    name: string;
+    identify: string;
   };
   adminRole: IItemRole[];
 }

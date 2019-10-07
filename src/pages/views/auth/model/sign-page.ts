@@ -10,8 +10,8 @@ export interface permissionPayload {
 }
 
 export interface IAdminAvatar {
-  name: string,
-  identify: string,
+  name: string;
+  identify: string;
 }
 
 export interface IItemRole {

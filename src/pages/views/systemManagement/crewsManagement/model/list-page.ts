@@ -25,20 +25,20 @@ export class CrewsItem {
   realName: string = '';
   updateTime: number = 1;
   status: number = 1;
-  userGroup: IUserGroup = {id: '', name: ''};
-  roles: IRoles = {id: 1, name: ''};
-  operate: IOperate = {operate: 1, verify: 1};
+  userGroup: IUserGroup = { id: '', name: '' };
+  roles: IRoles = { id: 1, name: '' };
+  operate: IOperate = { operate: 1, verify: 1 };
   statusType(): string {
-    if(this.status) {
+    if (this.status) {
       return 'success'
-    }else {
+    } else {
       return 'danger'
     }
-  };
+  }
   statusText(status: number): string {
-    if(status) {
+    if (status) {
       return '启用'
-    }else {
+    } else {
       return '禁用'
     }
   }
@@ -50,5 +50,5 @@ export class CrewsList {
   public crewsList: CrewsItem[] = []
   public status: number = 0
   public total: number = 0
-  public query: IQuery = {limit: 10, page: 1, search: ''}
+  public query: IQuery = { limit: 10, page: 1, search: '' }
 }
