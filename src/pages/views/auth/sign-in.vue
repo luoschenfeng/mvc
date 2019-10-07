@@ -77,7 +77,9 @@ import rules from '@/bases/validate/auth/signIn'
 import { IUserState, IItemRole, permissionPayload, routesPayload } from './model/sign-page'
 @Component
 export default class SignIn extends Vue {
-  @userModule.Action public GetUserInfo!: () => Promise<any>
+  @userModule.Action public GetUserInfo!: (
+    payload: object
+  ) => Promise<any>
   @permissionModule.Action public GetPermission!: (
     payload: permissionPayload
   ) => Promise<any>
@@ -123,8 +125,8 @@ export default class SignIn extends Vue {
           message: SU_SIGN_IN,
           type: 'success'
         })
-        login(res.data.token) // 登陆成功session存储
-        this.validateLognin()
+        login(res.data.data.token) // 登陆成功session存储
+        this.validateLognin(res.data.data)
         this.closeLoading()
 
         // getAdmin()
@@ -133,12 +135,11 @@ export default class SignIn extends Vue {
       }
     }
   }
-  private async validateLognin() {
+  private async validateLognin(data: object) {
     try {
-      let userInfo: IUserState = await this.GetUserInfo()
-      let permission = await this.GetPermission({ adminRole: userInfo.adminRole })
-      let asyncRouter = await this.GenerateRoutes({ _permission: permission })
-      this.$router.addRoutes(asyncRouter)
+      let userInfo: IUserState = await this.GetUserInfo({ data })
+      // let permission = await this.GetPermission({ adminRole: userInfo.adminRole })
+      // let asyncRouter = await this.GenerateRoutes({ _permission: permission })
       this.$router.push({ path: '/' })
     } catch (error) {
       if (this.$route.path !== '/signIn') {

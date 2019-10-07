@@ -3,7 +3,7 @@ import { ISignIn } from '@/bases/interface/hzlh/api/auth'
 
 export function signIn(data: ISignIn): Promise<any> {
   return request({
-    url: '/sign-in',
+    url: 'api-test/sign-in',
     method: 'POST',
     data
   })

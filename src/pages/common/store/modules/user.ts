@@ -1,6 +1,6 @@
 import { MutationTree, Module, ActionTree, GetterTree } from 'vuex'
 import { signOut } from '@/pages/common/api/auth'
-import { userMock } from '../translater/mock'
+// import { userMock } from '../translater/mock'
 
 import { userType } from '../mutation-types'
 import { RootState, IUserState, IItemRole } from '../type'
@@ -13,20 +13,32 @@ const { SET_ADMIN_ID, SET_ADMIN_AVATAR, SET_ADMIN_NAME, SET_ADMIN_ROLEID } = use
 const state: IUserState = {
   adminId: '',
   adminName: '',
-  adminAvatar: '',
-  adminRole: [],
+  adminAvatar: {
+    name: '',
+    identify: ''
+  },
+  adminRole: [
+    {
+      id: 1,
+      children: []
+    }
+  ],
 }
 
 const mutations: MutationTree<IUserState> = {
   'INIT_MODULES_STATE'(state) {
     state.adminId = ''
     state.adminName = ''
-    state.adminAvatar = ''
+    state.adminAvatar = {
+      name: '',
+      identify: ''
+    }
+    state.adminRole = []
   },
   [SET_ADMIN_ID](state, payload: { adminId: string }) {
     state.adminId = payload.adminId
   },
-  [SET_ADMIN_AVATAR](state, payload: { adminAvatar: string }) {
+  [SET_ADMIN_AVATAR](state, payload: { adminAvatar: { name: string, identify: string} }) {
     state.adminAvatar = payload.adminAvatar
   },
   [SET_ADMIN_NAME](state, payload: { adminName: string }) {
@@ -38,9 +50,8 @@ const mutations: MutationTree<IUserState> = {
 }
 
 const actions: ActionTree<IUserState, RootState> = {
-  GetUserInfo({ commit }) {
+  GetUserInfo({ commit }, { data }) {
     return new Promise(resolve => {
-      const data = userMock
       commit({
         type: 'SET_ADMIN_ID',
         adminId: data.id
@@ -55,9 +66,9 @@ const actions: ActionTree<IUserState, RootState> = {
       })
       commit({
         type: 'SET_ADMIN_ROLEID',
-        adminRoleId: data.adminRole
+        adminRole: data.adminRole
       })
-      return resolve(userMock)
+      return resolve(state)
     })
   },
 
@@ -96,6 +107,7 @@ const getters: GetterTree<IUserState, RootState> = {
   adminId: (state) => state.adminId,
   adminAvatar: (state) => state.adminAvatar,
   adminName: (state) => state.adminName,
+  adminRole: (state) => state.adminRole,
 }
 export const user: Module<IUserState, RootState> = {
   namespaced: true,

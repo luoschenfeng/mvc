@@ -1,5 +1,5 @@
 export default {
-  path: 'crewsManagement',
+  path: '/systemManagement/crewsManagement',
   name: 'crewsManagement',
   component: () => import('@/pages/views/systemManagement/crewsManagement/index.vue'),
   redirect: { name: 'crews' },

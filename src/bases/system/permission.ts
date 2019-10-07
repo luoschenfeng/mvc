@@ -23,9 +23,9 @@ const appPageLoadingHandler = appModuleHandler(appActionTypes.PAGE_LOADING)
 export async function generateRoutes(next: Function, to: Route) {
   if (!store.getters['permission/hasCachePermission']) {
     try {
-      const _permission: Ajax.AxiosResponse = await store.dispatch(
-        'permission/GetPermission'
-      )
+      const _permission: Ajax.AxiosResponse = await store.dispatch('permission/GetPermission', {
+        adminRole: store.getters['user/adminRole']
+      })
       const routers: any[] = await store.dispatch('permission/GenerateRoutes', {
         _permission
       })

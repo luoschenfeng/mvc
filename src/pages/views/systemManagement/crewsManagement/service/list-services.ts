@@ -1,21 +1,16 @@
 import CommonService from '@/pages/common/service/common-service'
-import { selectCrews } from '../api/crewsManegement'
-import { ICrewsList, OrderList } from '../model/list-page'
+import SelectCrewsClass from '../repository/list-repository'
+import {  CrewsList } from '../model/list-page'
 export default class Service extends CommonService {
-  private crewsMap: ICrewsList[] = []
-  private model: OrderList
-  constructor(model: OrderList) {
+  private model: CrewsList
+  constructor(model: CrewsList) {
     super()
     this.model = model
   }
-  public async fetchDataTpl() {
+  public async selectCrews(): Promise<any> {
     this.openLoading()
     try {
-      let category = await selectCrews({ limit: 10, search: '', page: 1 })
-      this.categoryMap = category.data
-      this.sortCategoryMap()
-      this.buildParentCategory()
-      this.initListData()
+      await this.initListData()
       this.closeLoading()
     } catch (err) {
       this.closeLoading()
@@ -26,5 +21,12 @@ export default class Service extends CommonService {
   }
   public closeLoading(): void {
     this.model.listLoading = false
+  }
+  private async initListData(): Promise<any> {
+    await SelectCrewsClass(this.model.query).then(data => {
+      this.model.crewsList = data.list
+      this.model.total = data.total
+      this.model.status = data.status
+    })
   }
 }

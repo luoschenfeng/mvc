@@ -64,7 +64,10 @@ export interface TypeTree {
 export interface IUserState {
   adminId: string;
   adminName: string;
-  adminAvatar: string;
+  adminAvatar: {
+    name: string,
+    identify: string
+  };
   adminRole: IItemRole[];
 }
 

@@ -56,12 +56,19 @@ module.exports = {
   },
   devServer: {
     proxy: {
-      '/api': {
+      '/api/api-test': {
         target: 'http://yapi.demo.qunar.com/mock/91/',
+        changeorigin: true,
+        pathRewrite: {
+          '^/api/api-test': ''
+        }
+      },
+      '/api': {
+        target: 'http://oa.sandbox.unintelli.com/',
         changeOrigin: true,
-        // pathRewrite: {
-        //   '^/api': '/'
-        // }
+        pathRewrite: {
+          '^/api': ''
+        }
       }
     }
   },

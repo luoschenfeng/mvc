@@ -6,7 +6,7 @@ export default {
   name: 'systemManagement',
   component: LayoutPage,
   redirect: '/systemManagement/crewsManagement',
-  roleId: 1,
+  roleId: 2,
   meta: { title: 'systemManagement.index', icon: 'icon-setting', noCache: true },
   children: [
     crewsManagement
